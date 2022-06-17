@@ -27,9 +27,9 @@ def load_from_mongo_local():
 
 def load_from_mongo():
     client = pymongo.MongoClient(
-        "mongodb+srv://jeremy:root@cluster0.5ei45.mongodb.net/test")
+        "mongodb+srv://jeremy:root@cluster0.5ei45.mongodb.net/")
     db = client.database
-    collection = db['steam_user']
+    collection = db['userrecomms']
     df = pd.DataFrame(list(collection.find()))
     del df['_id']
     return df
@@ -171,7 +171,7 @@ def recommendation(userid, prediction, num):
 #         clean_data.iloc[i, 4] = 1
 
 
-clean_data = load_from_mongo_local()
+clean_data = load_from_mongo()
 # clean_data = pd.read_csv('./clean_data.csv')
 # Nombre d'utilisateurs après le traitement
 n_users = len(clean_data.userid.unique())
