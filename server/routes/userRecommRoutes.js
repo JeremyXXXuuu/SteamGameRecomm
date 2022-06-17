@@ -6,6 +6,7 @@ const {
   setGame,
   updateGame,
 } = require("../controllers/userRecommController");
+
 const { protect } = require("../middleware/authMiddleware");
 router.route("/:id").get(protect, getGame);
 
