@@ -70,7 +70,7 @@ const getRecomm = async (req, res) => {
     recom = recom.map((element) => {
       return Number(element);
     });
-    console.log(recom);
+    // console.log(recom);
 
     await Promise.all(
       recom.map(async (r) => {

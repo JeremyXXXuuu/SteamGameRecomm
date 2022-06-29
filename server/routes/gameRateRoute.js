@@ -5,7 +5,7 @@ const {
   getGame,
   setGame,
   updateGame,
-} = require("../controllers/userRecommController");
+} = require("../controllers/gameRateController");
 
 const { protect } = require("../middleware/authMiddleware");
 router.route("/:id").get(protect, getGame);

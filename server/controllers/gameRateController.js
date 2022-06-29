@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 
-const Game = require("../models/gameModel");
-const User = require("../models/userModel");
+const UserRecomm = require("../models/userRecommModel");
 
 const getGame = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -10,12 +9,11 @@ const getGame = asyncHandler(async (req, res) => {
     throw new Error("Please add a id field");
   }
   try {
-    const game = await Game.find({
-      user: req.user.id,
-      game_id: id,
+    const game = await UserRecomm.find({
+      userid: req.user.id,
+      appid: id,
     });
     if (game.length > 0) {
-      console.log(game);
       res.status(200).json(game);
     } else {
       res.status(200).json([{ score: -1 }]);
@@ -39,12 +37,12 @@ const setGame = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add a score field");
   }
-  const game = await Game.create({
-    user: req.user.id,
-    game_id: id,
-    score: text,
+  const game = await UserRecomm.create({
+    userid: req.user.id,
+    appid: id,
+    rating: text,
   });
-  console.log(game.score);
+  console.log(game.rating);
   res.status(200).json(game);
 });
 
@@ -65,13 +63,13 @@ const updateGame = asyncHandler(async (req, res) => {
   }
 
   var query = {
-    user: req.user.id,
-    game_id: req.body.id,
+    userid: req.user.id,
+    appid: req.body.id,
   };
-  const updatedGame = await Game.findOneAndUpdate(
+  const updatedGame = await UserRecomm.findOneAndUpdate(
     query,
     {
-      $set: { score: text },
+      $set: { rating: text },
     },
     { new: true }
   );
