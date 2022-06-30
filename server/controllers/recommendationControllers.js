@@ -26,6 +26,7 @@ const getRecommendation = asyncHandler(async (req, res) => {
 
       res.status(200).json(recomGames);
       client.json.set("recomGame", "$", recomGames);
+      client.expire("recomGame", 3600); //set expire time 60s
     } catch (error) {
       console.log(error);
     }
